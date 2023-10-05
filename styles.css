@@ -1,5 +1,8 @@
 body {
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #container {
@@ -7,16 +10,14 @@ body {
     width: 500px;
     display: flex;
     flex-direction: column;
+    border: 1px solid;
 }
 
 .row {
-    height: 100%;
-    width: 100%;
+    flex: auto;
     display: flex;
 }
 
 .grid {
-    height: 100%;
-    width: 100%;
-    border: 1px solid;
+    flex: auto;
 }
