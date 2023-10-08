@@ -1,7 +1,8 @@
 const container = document.querySelector('#container');
+const button = document.getElementById('clear');
 let slider = document.getElementById("Range");
 let output = document.getElementById("value");
-output.innerHTML = slider.value;
+output.textContent = `Grid size: ${slider.value}x${slider.value}`;
 
 function createGrid(size) {
     for(let i = 0; i < size; i++) {
@@ -23,18 +24,41 @@ function removeGrid() {
     });
 };
 
+function clear() {
+    const grid = document.querySelectorAll('.grid');
+    grid.forEach(gridItem => gridItem.style.background = "white");
+};
+
 createGrid(slider.value);
 const grid = document.querySelectorAll('.grid');
+let flag = false;
+window.onmouseup = () => {                        
+    flag = false;
+}
 grid.forEach(gridItem => gridItem.addEventListener("mouseover", () => {
-    gridItem.style.background = 'black';
+    if(flag == true) {
+        gridItem.style.background = 'black';
+    }
+    gridItem.addEventListener("mousedown", () => {
+        gridItem.style.background = 'black';
+        flag = true;
+    });
 }));
 
 slider.addEventListener('input',(e)=>{
-    output.innerHTML = e.target.value;
+    output.textContent = `Grid size: ${slider.value}x${slider.value}`;
     removeGrid();
     createGrid(e.target.value);
     const grid = document.querySelectorAll('.grid');
     grid.forEach(gridItem => gridItem.addEventListener("mouseover", () => {
-        gridItem.style.background = 'black';
+        if(flag == true) {
+            gridItem.style.background = 'black';
+        }
+        gridItem.addEventListener("mousedown", () => {
+            gridItem.style.background = 'black';
+            flag = true;
+        });
     }));
 });
+
+button.addEventListener('click', clear);
